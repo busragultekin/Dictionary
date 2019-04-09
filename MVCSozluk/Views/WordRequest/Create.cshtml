@@ -1,0 +1,41 @@
+﻿@using Entity
+@model WordRequest
+
+@* Html helper sınıfını kullanarak bir WordRequest post edebilecek form oluşturalım
+    Index e dönebileceğimiz bir link oluşturalım
+    Hatalar varsa gösterelim
+*@
+
+
+
+@using (Html.BeginForm())
+{
+<div class="container">
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
+        </div>
+    }
+   
+            <div class="form-group col-md-6">
+                @Html.LabelFor(x => x.Language)
+                @Html.DropDownListFor(x => x.LanguageId, (IEnumerable<SelectListItem>)ViewBag.Langs, new { @class = "form-control" })
+            </div>
+   
+
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(x => x.Word)
+        @Html.TextBoxFor(x => x.Word, new { @class = "form-control" })
+    </div>
+    <div class="text-right">
+        <div class="col-md-12">
+            <button class="btn btn-primary">Kaydet</button>
+            @Html.ActionLink("İptal", "Index", new { @class = "btn btn-warning" })
+        </div>
+    </div>
+
+
+</div>
+}

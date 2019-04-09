@@ -1,0 +1,40 @@
+﻿@using Entity
+@model IEnumerable<Word>
+
+<div class="container wordindex">
+    <h3>Kelimeler</h3>
+    @using (Html.BeginForm())
+    {
+        @Html.DropDownList("langid", (IEnumerable<SelectListItem>)ViewData["LangOptions"])
+    }
+    @if (Model != null)
+    {
+
+
+        <table class="table table-hover table-bordered table-striped">
+            <tr>
+                <td>Kelime</td>
+                <td>İşlem</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.WordTxt</td>
+                    <td>@Html.ActionLink("Sil", "Index", new { @sil = item.Id, @langid = ViewBag.langid, @class="btn btn-danger" })</td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+
+@section Scripts{
+<script>
+    $("select#langid").change(function () {
+        $(".wordindex form").submit();
+    });
+</script>
+
+}
+
+   
